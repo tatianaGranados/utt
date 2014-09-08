@@ -66,37 +66,26 @@
 ?>
 
 <div id="wrapper">
-  <header id="header" role="banner">
-    <?php if ($logo): ?><div id="logo"><a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>"><img src="<?php print $logo; ?>"/></a></div><?php endif; ?>
-    <?php if ($site_name): ?><h1 id="site-title"><a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>"><?php print $site_name; ?></a></h1><?php endif; ?>
-    <?php if ($site_slogan): ?><div id="site-description"><?php print $site_slogan; ?></div><?php endif; ?>
+ <div id="container">
+ 
+ <header id="header" role="banner">
+       
+   <?php if ($logo): ?><div id="logo"><a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>"><img src="<?php print $logo; ?>"/></a></div><?php endif; ?>
+   <?php if ($site_name): ?><h1 id="site-title"><a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>"><?php print $site_name; ?></a></h1><?php endif; ?>
+   <?php if ($site_slogan): ?><div id="site-description"><?php print $site_slogan; ?></div><?php endif; ?>
     <div class="clear"></div>
 	<?php
 		/* Disable Main menu if unchecked */
 		if ($main_menu == TRUE):
 	?>
-    <nav id="main-menu"  role="navigation">
-      <a class="nav-toggle" href="#"><?php print t("Navigation"); ?></a>
-      <div class="menu-navigation-container">
-        <?php
-        if (module_exists('i18n_menu')) {
-			$main_menu_tree = i18n_menu_translated_tree(variable_get('menu_main_links_source', 'main-menu'));
-        } else {
-			$main_menu_tree = menu_tree(variable_get('menu_main_links_source', 'main-menu'));
-        }
-			print drupal_render($main_menu_tree);
-		?>
-      </div>
-      <div class="clear"></div>
-    </nav>
+    
 	<?php endif;?><!-- end main-menu -->
   </header>
-
-
-  <div id="container">
-
+ <!-- galeria de imagenes-->
+ 
     <?php if ($is_front || theme_get_setting('slideshow_all')): ?>
       <?php if (theme_get_setting('slideshow_display')): ?>
+	  
         <!-- Slides -->
         <?php
         $slide1_head = check_plain(theme_get_setting('slide1_head'));
@@ -128,6 +117,7 @@
           $slide3_alt = "slider image 3";
         endif;
         ?>
+		
     <section id="slider">
     <ul class="slides">
       <li>
@@ -197,7 +187,6 @@
        <?php endif; ?>
     <?php endif; ?>
 
-
    <?php if ($page['header']): ?>
    <div id="head">
     <?php print render($page['header']); ?>
@@ -205,6 +194,34 @@
    <div class="clear"></div>
    <?php endif; ?>
 
+ <!-- """"""""""""""""""""""""""""""cuerpo de comentarios de la página"""""""""""""""""""""" -->
+ 
+<header id="header" role="banner">
+       
+  
+	  
+    <div class="clear"></div>
+	<?php
+		/* Disable Main menu if unchecked */
+		if ($main_menu == TRUE):
+	?>
+    <nav id="main-menu"  role="navigation">
+      <a class="nav-toggle" href="#"><?php print t("Navigation"); ?></a>
+      <div class="menu-navigation-container">
+        <?php
+        if (module_exists('i18n_menu')) {
+			$main_menu_tree = i18n_menu_translated_tree(variable_get('menu_main_links_source', 'main-menu'));
+        } else {
+			$main_menu_tree = menu_tree(variable_get('menu_main_links_source', 'main-menu'));
+        }
+			print drupal_render($main_menu_tree);
+		?>
+      </div>
+      <div class="clear"></div>
+    </nav>
+	<?php endif;?><!-- end main-menu -->
+  </header>
+   
     <div class="content-sidebar-wrap">
 
     <div id="content">
@@ -222,6 +239,9 @@
       </section> <!-- /#main -->
     </div>
 
+<!--sobre el bloque-->	
+	
+	
     <?php if ($page['sidebar_first']): ?>
       <aside id="sidebar-first" role="complementary">
         <?php print render($page['sidebar_first']); ?>
@@ -236,37 +256,53 @@
       </aside>  <!-- /#sidebar-first -->
     <?php endif; ?>
 
-  <div class="clear"></div>
+<!-- """""""""""""""""""""""""""""pie de pagina	"""""""""""""""""""""""""""""""-->
 
+  <div class="clear"></div>
+  
   <?php if ($page['footer']): ?>
    <div id="foot">
+   
+   <nav id="main-menu"  role="navigation">
+      <a class="nav-toggle" href="#"><?php print t("Navigation"); ?></a>
+      <div class="clear"></div>
+   
+   </nav>
+   
      <?php print render($page['footer']) ?>
    </div>
    <?php endif; ?>
+    
   </div>
-
-
-
+<!-- """"""""""""""""borde para el el pie de página"""""""""""--> 
+ <nav id="main-menu"  role="navigation">
+      <a class="nav-toggle" href="#"><?php print t("Navigation"); ?></a>
+      <div class="clear"></div>
+   
+   </nav>
+<!-- """"""""""""""""borde para el el pie de página"""""""""""-->   
   <div id="footer">
-    <?php if ($page['footer_first'] || $page['footer_second'] || $page['footer_third']): ?>
+    <?php if ( $page['footer_second'] || $page['footer_first']  || $page['footer_third']): ?>
       <div id="footer-area" class="clearfix">
-        <?php if ($page['footer_first']): ?>
-        <div class="column"><?php print render($page['footer_first']); ?></div>
-        <?php endif; ?>
-        <?php if ($page['footer_second']): ?>
+         <?php if ($page['footer_second']): ?>
         <div class="column"><?php print render($page['footer_second']); ?></div>
         <?php endif; ?>
+		<?php if ($page['footer_first']): ?>
+        <div class="column"><?php print render($page['footer_first']); ?></div>
+        <?php endif; ?>
+       
         <?php if ($page['footer_third']): ?>
         <div class="column"><?php print render($page['footer_third']); ?></div>
         <?php endif; ?>
       </div>
+	  
     <?php endif; ?>
 
     <div id="copyright">
     <!--Remove  -->
     <?php if (!theme_get_setting('remove_copyright')){ ?>
     <?php if (!theme_get_setting('copyright_override')){?>
-      <p class="copyright"><?php print t('Copyright'); ?> &copy; <?php echo date("Y"); ?>, <?php print check_plain(theme_get_setting('copywrite_holder')) ?></p>
+      <p class="copyright"><?php print t('Copyright derechos reservados utt'); ?> &copy; <?php echo date("Y"); ?>, <?php print check_plain(theme_get_setting('copywrite_holder')) ?></p>
     <?php } else {?>
        <?php echo check_plain(theme_get_setting('copyright_override'));?>
     <?php } ?>

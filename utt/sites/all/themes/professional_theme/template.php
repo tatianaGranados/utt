@@ -27,7 +27,14 @@ function professional_theme_breadcrumb($variables) {
 /**
  * Override or insert variables into the page template.
  */
-function professional_theme_preprocess_page(&$vars) {
+
+ // Add javascript files for front-page jquery slideshow.
+  if (drupal_is_front_page() || theme_get_setting('slideshow_all')) {
+    $directory = drupal_get_path('theme', 'professional_theme');
+    drupal_add_js($directory . '/js/jquery.flexslider-min.js', array('group' => JS_THEME));
+    drupal_add_js($directory . '/js/slide.js', array('group' => JS_THEME));
+  }
+ function professional_theme_preprocess_page(&$vars) {
   if (isset($vars['main_menu'])) {
     $vars['main_menu'] = theme('links__system_main_menu', array(
       'links' => $vars['main_menu'],
@@ -60,12 +67,7 @@ function professional_theme_preprocess_page(&$vars) {
   else {
     $vars['secondary_menu'] = FALSE;
   }
-  // Add javascript files for front-page jquery slideshow.
-  if (drupal_is_front_page() || theme_get_setting('slideshow_all')) {
-    $directory = drupal_get_path('theme', 'professional_theme');
-    drupal_add_js($directory . '/js/jquery.flexslider-min.js', array('group' => JS_THEME));
-    drupal_add_js($directory . '/js/slide.js', array('group' => JS_THEME));
-  }
+  
   // <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
   $viewport = array(
     '#type' => 'html_tag',
