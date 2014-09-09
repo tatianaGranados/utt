@@ -1475,6 +1475,7 @@ ol.search-results { padding-left: 0; }
   position:absolute;
   left:4%;
   bottom:6.3%;
+  width: 920%;
   }
 
   #slider .entry-header,
